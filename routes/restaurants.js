@@ -177,7 +177,7 @@ const {getHospitals, getHospital, createHospital, updateHospital, deleteHospital
 
 
 
-const appointmentRouter = require('./appointments');
+const appointmentRouter = require('./reservations');
 
 const router = express.Router();
 

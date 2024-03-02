@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const HospitalSchema = new mongoose.Schema({
+const RestaurantSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true,'Please add a name'],
@@ -12,45 +12,36 @@ const HospitalSchema = new mongoose.Schema({
         type: String,
         required: [true,'Please add a address']
     },
-    district:{
-        type: String,
-        required: [true,'Please add a district']
-    },
-    province:{
-        type: String,
-        required: [true,'Please add a province']
-    },
-    postalcode:{
-        type: String,
-        required: [true,'Please add a postalcode'],
-        maxlength: [5,'Postal Code can not be more than 5 digits']
-    },
     tel:{
         type: String,
     },
-    region:{
+    opentime:{
         type: String,
-        required: [true,'Please add a region']
+        required: [true,'Please add a restaurant opening time']
+    },
+    closetime:{
+        type: String,
+        required: [true,'Please add a restaurant closing time']
     }
 },{
     toJSON: {virtuals: true},
     toObject: {virtuals: true}
 });
 
-HospitalSchema.pre('deleteOne', {document: true, query: false}, async function(next){
-    console.log(`Appointments being removed from restaurant ${this._id}`);
+RestaurantSchema.pre('deleteOne', {document: true, query: false}, async function(next){
+    console.log(`Reservations being removed from restaurant ${this._id}`);
 
-    await this.model('Appointment').deleteMany({restaurant: this._id});
+    await this.model('Reservation').deleteMany({restaurant: this._id});
 
     next();
 
 });
 
-HospitalSchema.virtual('appointments',{
-    ref: 'Appointment',
+RestaurantSchema.virtual('reservations',{
+    ref: 'Reservation',
     localField: '_id',
     foreignField: 'restaurant',
     justOne:false
 });
 
-module.exports = mongoose.model('Restaurant', HospitalSchema);
+module.exports = mongoose.model('Restaurant', RestaurantSchema);

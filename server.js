@@ -37,7 +37,7 @@ const swaggerOptions={
 };
 
 const restaurants = require('./routes/restaurants');
-const appointments = require('./routes/appointments');
+const appointments = require('./routes/reservations');
 const auth = require('./routes/auth');
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 

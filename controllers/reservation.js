@@ -1,4 +1,4 @@
-const Appointment = require('../models/Appointment');
+const Appointment = require('../models/Reservation');
 
 const Restaurant = require(('../models/Restaurant'));
 
