@@ -33,6 +33,7 @@ exports.getReservations = async (req,res,next)=>{
             success: true,
             count: reservations.length,
             data: reservations
+
         });
     }catch(err){
         console.log(err);
@@ -49,6 +50,7 @@ exports.getReservation = async (req,res,next) =>{
             path: 'restaurant',
             select: 'name description tel'
         });
+
 
         if(!reservation){
             return res.status(404).json({success:false, message: `No reservation with the id of ${req.params.id}`});
@@ -75,6 +77,7 @@ exports.addReservation = async (req,res,next) => {
         }
         
         req.body.user = req.user.id;
+
         const existedReservations = await Reservation.find({user: req.user.id});
 
         if(existedReservations.length >= 3 && req.user.role !== 'admin'){

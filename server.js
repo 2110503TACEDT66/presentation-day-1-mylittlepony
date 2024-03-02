@@ -19,27 +19,12 @@ const limiter = rateLimit({
     windowsMs: 10 * 60 * 1000,
     max: 100
 });
-const swaggerOptions={
-    swaggerDefinition:{
-        openapi: '3.0.0',
-        info: {
-            title: 'Library API',
-            version: '1.0.0',
-            description: 'A simple Express VacQ API'
-        },
-        servers: [
-            {       
-                url: 'http://localhost:5000/api/v1'
-            }
-        ],
-    },
-    apis:['./routes/*.js'],
-};
 
-const hospitals = require('./routes/hospitals');
-const appointments = require('./routes/appointments');
+const restaurants = require('./routes/restaurants');
+
+const reservations = require('./routes/reservations');
+
 const auth = require('./routes/auth');
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 const app = express();
 
@@ -52,9 +37,9 @@ app.use(limiter);
 app.use(hpp());
 app.use(cors());
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
-app.use('/api/v1/hospitals', hospitals);
-app.use('/api/v1/appointments', appointments);
+app.use('/api/v1/restaurants', restaurants);
+app.use('/api/v1/reservations', reservations);
+
 app.use('/api/v1/auth', auth);
 
 const PORT = process.env.PORT || 5000;
