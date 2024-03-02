@@ -1,13 +1,13 @@
 const Appointment = require('../models/Appointment');
 
-const Hospital = require(('../models/Hospital'));
+const Restaurant = require(('../models/Restaurant'));
 
 exports.getAppointments = async (req,res,next)=>{
     let query;
 
     if(req.user.role !== 'admin'){
         query = Appointment.find({user:req.user.id}).populate({
-            path: 'hospital',
+            path: 'restaurant',
             select: 'name province tel'
         });
     }else{
@@ -15,14 +15,14 @@ exports.getAppointments = async (req,res,next)=>{
             console.log(req.params.hospitalId);
 
             query = Appointment.find({
-                hospital: req.params.hospitalId
+                restaurant: req.params.hospitalId
             }).populate({
-                path: 'hospital',
+                path: 'restaurant',
                 select: 'name province tel'
             });
         }else{
             query = Appointment.find().populate({
-                path: 'hospital',
+                path: 'restaurant',
                 select: 'name province tel'
             });
         }
@@ -46,7 +46,7 @@ exports.getAppointments = async (req,res,next)=>{
 exports.getAppointment = async (req,res,next) =>{
     try{
         const appointment = await Appointment.findById(req.params.id).populate({
-            path: 'hospital',
+            path: 'restaurant',
             select: 'name description tel'
         });
 
@@ -66,12 +66,12 @@ exports.getAppointment = async (req,res,next) =>{
 
 exports.addAppointment = async (req,res,next) => {
     try {
-        req.body.hospital = req.params.hospitalId;
+        req.body.restaurant = req.params.hospitalId;
 
-        const hospital = await Hospital.findById(req.params.hospitalId);
+        const restaurant = await Restaurant.findById(req.params.hospitalId);
 
-        if(!hospital){
-            return res.status(404).json({success: false, message: `No hospital with the id of ${req.params.hospitalID}`});
+        if(!restaurant){
+            return res.status(404).json({success: false, message: `No restaurant with the id of ${req.params.hospitalID}`});
         }
         
         req.body.user = req.user.id;

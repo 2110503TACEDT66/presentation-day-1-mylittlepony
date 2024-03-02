@@ -36,7 +36,7 @@ const swaggerOptions={
     apis:['./routes/*.js'],
 };
 
-const hospitals = require('./routes/hospitals');
+const restaurants = require('./routes/restaurants');
 const appointments = require('./routes/appointments');
 const auth = require('./routes/auth');
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -53,7 +53,7 @@ app.use(hpp());
 app.use(cors());
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
-app.use('/api/v1/hospitals', hospitals);
+app.use('/api/v1/restaurants', restaurants);
 app.use('/api/v1/appointments', appointments);
 app.use('/api/v1/auth', auth);
 

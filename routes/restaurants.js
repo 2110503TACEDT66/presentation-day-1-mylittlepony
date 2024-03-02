@@ -1,11 +1,11 @@
 const express = require('express');
-const {getHospitals, getHospital, createHospital, updateHospital, deleteHospital, getVacCenters} = require('../controllers/hospitals');
+const {getHospitals, getHospital, createHospital, updateHospital, deleteHospital, getVacCenters} = require('../controllers/restaurants');
 
 /**
  * @swagger
  * components:
  *   schemas: 
- *       Hospital:
+ *       Restaurant:
  *           type: object
  *           required:
  *               - name
@@ -14,14 +14,14 @@ const {getHospitals, getHospital, createHospital, updateHospital, deleteHospital
  *              id:
  *                  type: string
  *                  format: uuid
- *                  description: The auto-generated id of the hospital
+ *                  description: The auto-generated id of the restaurant
  *                  example: d290f1ee-6c54-4b01-90e6-d701748f0851
  *              ลําดับ:
  *                  type: string
  *                  description: Ordinal number
  *              name:
  *                  type: string
- *                  description: Hospital name
+ *                  description: Restaurant name
  *              address:
  *                  type: string
  *                  description: House No., Street, Road
@@ -43,7 +43,7 @@ const {getHospitals, getHospital, createHospital, updateHospital, deleteHospital
  *           example:
  *              id: 609bda561452242d88d36e37
  *              ลําดับ: 121
- *              name: Happy Hospital 
+ *              name: Happy Restaurant 
  *              address: 121 ถ.สุขุมวิท
  *              district: บางนา
  *              province: กรุงเทพมหานคร
@@ -55,124 +55,124 @@ const {getHospitals, getHospital, createHospital, updateHospital, deleteHospital
 /**
     * @swagger
     * tags:
-    *   name: Hospitals
-    *   description: The hospitals managing API
+    *   name: Restaurants
+    *   description: The restaurants managing API
     */
 
 /**
 * @swagger
-* /hospitals:
+* /restaurants:
 *   get:
-*       summary: Returns the list of all the hospitals
-*       tags: [Hospitals]
+*       summary: Returns the list of all the restaurants
+*       tags: [Restaurants]
 *       responses:
 *           200:
-*               description: The list of the hospitals
+*               description: The list of the restaurants
 *               content:
 *                   application/json:
 *                       schema:
 *                           type: array
 *                           items:
-*                               $ref: '#/components/schemas/Hospital'
+*                               $ref: '#/components/schemas/Restaurant'
 */
 
 /**
 * @swagger
-* /hospitals/{id}:
+* /restaurants/{id}:
 *   get:
-*     summary: Get the hospital by id
-*     tags: [Hospitals]
+*     summary: Get the restaurant by id
+*     tags: [Restaurants]
 *     parameters:
 *       - in: path
 *         name: id
 *         schema:
 *           type: string
 *         required: true
-*         description: The hospital id
+*         description: The restaurant id
 *     responses:
 *       200:
-*         description: The hospital description by id
+*         description: The restaurant description by id
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/Hospital'
+*               $ref: '#/components/schemas/Restaurant'
 *       404:
-*         description: The hospital was not found
+*         description: The restaurant was not found
 */
 
 /**
 * @swagger
-* /hospitals:
+* /restaurants:
 *   post:
-*     summary: Create a new hospital
-*     tags: [Hospitals]
+*     summary: Create a new restaurant
+*     tags: [Restaurants]
 *     requestBody:
 *       required: true
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/Hospital'
+*             $ref: '#/components/schemas/Restaurant'
 *     responses:
 *       201:
-*         description: The hospital was successfully created
+*         description: The restaurant was successfully created
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/Hospital'
+*               $ref: '#/components/schemas/Restaurant'
 *       500:
 *         description: Some server error
 */
 
 /**
 * @swagger
-* /hospitals/{id}:
+* /restaurants/{id}:
 *   put:
-*     summary: Update the hospital by the id
-*     tags: [Hospitals]
+*     summary: Update the restaurant by the id
+*     tags: [Restaurants]
 *     parameters:
 *       - in: path
 *         name: id
 *         schema:
 *           type: string
 *         required: true
-*         description: The hospital id
+*         description: The restaurant id
 *     requestBody:
 *       required: true
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/Hospital'
+*             $ref: '#/components/schemas/Restaurant'
 *     responses:
 *       200:
-*         description: The hospital was updated
+*         description: The restaurant was updated
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/Hospital'
+*               $ref: '#/components/schemas/Restaurant'
 *       404:
-*         description: The hospital was not found
+*         description: The restaurant was not found
 *       500:
 *         description: Some error happened
 */
 
 /**
 * @swagger
-* /hospitals/{id}:
+* /restaurants/{id}:
 *   delete:
-*     summary: Remove the hospital by id
-*     tags: [Hospitals]
+*     summary: Remove the restaurant by id
+*     tags: [Restaurants]
 *     parameters:
 *       - in: path
 *         name: id
 *         schema:
 *           type: string
 *         required: true
-*         description: The hospital id
+*         description: The restaurant id
 *     responses:
 *       200:
-*         description: The hospital was deleted
+*         description: The restaurant was deleted
 *       404:
-*         description: The hospital was not found
+*         description: The restaurant was not found
 */
 
 

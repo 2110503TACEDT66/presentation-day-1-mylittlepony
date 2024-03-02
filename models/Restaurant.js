@@ -38,9 +38,9 @@ const HospitalSchema = new mongoose.Schema({
 });
 
 HospitalSchema.pre('deleteOne', {document: true, query: false}, async function(next){
-    console.log(`Appointments being removed from hospital ${this._id}`);
+    console.log(`Appointments being removed from restaurant ${this._id}`);
 
-    await this.model('Appointment').deleteMany({hospital: this._id});
+    await this.model('Appointment').deleteMany({restaurant: this._id});
 
     next();
 
@@ -49,8 +49,8 @@ HospitalSchema.pre('deleteOne', {document: true, query: false}, async function(n
 HospitalSchema.virtual('appointments',{
     ref: 'Appointment',
     localField: '_id',
-    foreignField: 'hospital',
+    foreignField: 'restaurant',
     justOne:false
 });
 
-module.exports = mongoose.model('Hospital', HospitalSchema);
+module.exports = mongoose.model('Restaurant', HospitalSchema);
