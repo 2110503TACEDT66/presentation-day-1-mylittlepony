@@ -10,9 +10,10 @@ const AppointmentSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    hospital:{
+    restaurant:{
         type: mongoose.Schema.ObjectId,
-        ref: 'Hospital',
+        ref: 'Restaurant',
+
         required: true
     },
     createdAt:{

@@ -21,7 +21,9 @@ const limiter = rateLimit({
 });
 
 const restaurants = require('./routes/restaurants');
+
 const reservations = require('./routes/reservations');
+
 const auth = require('./routes/auth');
 
 const app = express();
@@ -37,6 +39,7 @@ app.use(cors());
 
 app.use('/api/v1/restaurants', restaurants);
 app.use('/api/v1/reservations', reservations);
+
 app.use('/api/v1/auth', auth);
 
 const PORT = process.env.PORT || 5000;
