@@ -1,17 +1,6 @@
 const Restaurant = require('../models/Restaurant');
 
-const vacCenter = require('../models/VacCenter');
-
-exports.getVacCenters = (req, res, next) => {
-    vacCenter.getAll((err, data) => {
-        if(err) res.status(500).send({
-            message: err.message || "Some error occured while retrieving Vaccine Centers."
-        });
-        else res.send(data);
-    });
-};
-
-exports.getHospitals=async(req,res,next)=>{
+exports.getRestaurants=async(req,res,next)=>{
 
     let query;
 
@@ -25,7 +14,7 @@ exports.getHospitals=async(req,res,next)=>{
     let queryStr=JSON.stringify(reqQuery);
     queryStr=queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
-    query = Restaurant.find(JSON.parse(queryStr)).populate('appointments');
+    query = Restaurant.find(JSON.parse(queryStr)).populate('reservations');
 
     if(req.query.select){
         const fields = req.query.select.split(',').join(' ');
@@ -71,7 +60,7 @@ exports.getHospitals=async(req,res,next)=>{
     }
 };
 
-exports.getHospital=async(req,res,next)=>{
+exports.getRestaurant=async(req,res,next)=>{
     try{
         const restaurant = await Restaurant.findById(req.params.id);
 
@@ -86,13 +75,13 @@ exports.getHospital=async(req,res,next)=>{
 };
 
 
-exports.createHospital=async (req,res,next)=>{
+exports.createRestaurant=async (req,res,next)=>{
     const restaurant = await Restaurant.create(req.body);
     res.status(201).json({success:true, data:restaurant});
 };
 
 
-exports.updateHospital=async (req,res,next)=>{
+exports.updateRestaurant=async (req,res,next)=>{
     try{
         const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
@@ -109,7 +98,7 @@ exports.updateHospital=async (req,res,next)=>{
     }};
 
 
-exports.deleteHospital = async (req,res,next)=>{
+exports.deleteRestaurant = async (req,res,next)=>{
     try{
         const restaurant = await Restaurant.findById(req.params.id);
 
