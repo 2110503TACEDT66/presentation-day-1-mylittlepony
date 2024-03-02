@@ -8,7 +8,7 @@ exports.getReservations = async (req,res,next)=>{
     if(req.user.role !== 'admin'){
         query = Reservation.find({user:req.user.id}).populate({
             path: 'restaurant',
-            select: 'name province tel'
+            select: 'name address tel opentime closetime'
         });
     }else{
         if(req.params.restaurantId) {
@@ -18,12 +18,12 @@ exports.getReservations = async (req,res,next)=>{
                 restaurant: req.params.restaurantId
             }).populate({
                 path: 'restaurant',
-                select: 'name province tel'
+                select: 'name address tel opentime closetime'
             });
         }else{
             query = Reservation.find().populate({
                 path: 'restaurant',
-                select: 'name province tel'
+                select: 'name address tel opentime closetime'
             });
         }
     }
@@ -48,7 +48,7 @@ exports.getReservation = async (req,res,next) =>{
     try{
         const reservation = await Reservation.findById(req.params.id).populate({
             path: 'restaurant',
-            select: 'name description tel'
+            select: 'name address tel opentime closetime'
         });
 
 
