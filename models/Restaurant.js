@@ -12,6 +12,7 @@ const RestaurantSchema = new mongoose.Schema({
         type: String,
         required: [true,'Please add a address']
     },
+
     tel:{
         type: String,
     },
@@ -22,11 +23,13 @@ const RestaurantSchema = new mongoose.Schema({
     closetime:{
         type: String,
         required: [true,'Please add a restaurant closing time']
+
     }
 },{
     toJSON: {virtuals: true},
     toObject: {virtuals: true}
 });
+
 
 RestaurantSchema.pre('deleteOne', {document: true, query: false}, async function(next){
     console.log(`Reservations being removed from restaurant ${this._id}`);
@@ -45,3 +48,4 @@ RestaurantSchema.virtual('reservations',{
 });
 
 module.exports = mongoose.model('Restaurant', RestaurantSchema);
+
