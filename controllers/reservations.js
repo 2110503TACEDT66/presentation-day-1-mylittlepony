@@ -8,6 +8,7 @@ exports.getAppointments = async (req,res,next)=>{
     if(req.user.role !== 'admin'){
         query = Appointment.find({user:req.user.id}).populate({
             path: 'restaurant',
+
             select: 'name province tel'
         });
     }else{
@@ -15,14 +16,18 @@ exports.getAppointments = async (req,res,next)=>{
             console.log(req.params.hospitalId);
 
             query = Appointment.find({
+
                 restaurant: req.params.hospitalId
             }).populate({
                 path: 'restaurant',
+
                 select: 'name province tel'
             });
         }else{
             query = Appointment.find().populate({
+
                 path: 'restaurant',
+
                 select: 'name province tel'
             });
         }
@@ -68,10 +73,10 @@ exports.addAppointment = async (req,res,next) => {
     try {
         req.body.restaurant = req.params.hospitalId;
 
-        const restaurant = await Restaurant.findById(req.params.hospitalId);
+        const restaurant = await Restaurant.findById(req.params.restaurantId);
 
         if(!restaurant){
-            return res.status(404).json({success: false, message: `No restaurant with the id of ${req.params.hospitalID}`});
+            return res.status(404).json({success: false, message: `No restaurant with the id of ${req.params.restaurantID}`});
         }
         
         req.body.user = req.user.id;
