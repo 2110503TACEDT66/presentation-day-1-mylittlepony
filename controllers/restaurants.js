@@ -1,5 +1,7 @@
 const Restaurant = require('../models/Restaurant');
 
+const Review = require('../models/Review');
+
 exports.getRestaurants=async(req,res,next)=>{
 
     let query;
@@ -36,9 +38,25 @@ exports.getRestaurants=async(req,res,next)=>{
     try{
         const total = await Restaurant.countDocuments();
         query = query.skip(startIndex).limit(limit);
-
-        const restaurants = await query;
         
+        const restaurants = await query;
+
+        for (let i = 0; i < restaurants.length; i++) {
+            const avgRating = await Review.aggregate([
+                {
+                    $match: { restaurant: restaurants[i]._id }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        averageRating: { $avg: "$rating" }
+                    }
+                }
+            ]);
+
+            restaurants[i] = { ...restaurants[i]._doc, reservations: restaurants[i].reservations, averageRating: avgRating.length > 0 ? avgRating[0].averageRating : 'No Review' };
+        }
+
         const pagination = {};
         if(endIndex<total){
             pagination.next={
