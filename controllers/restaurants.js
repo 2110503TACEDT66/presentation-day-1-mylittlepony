@@ -54,7 +54,7 @@ exports.getRestaurants=async(req,res,next)=>{
                 }
             ]);
 
-            restaurants[i] = { ...restaurants[i]._doc, reservations: restaurants[i].reservations, averageRating: avgRating.length > 0 ? avgRating[0].averageRating : 'No Review' };
+            restaurants[i] = { ...restaurants[i]._doc, reservations: restaurants[i].reservations, averageRating: avgRating.length > 0 ? avgRating[0].averageRating.toFixed(1) : 'No Review' };
         }
 
         const pagination = {};
