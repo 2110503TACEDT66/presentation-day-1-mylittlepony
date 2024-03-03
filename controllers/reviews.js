@@ -5,10 +5,21 @@ const Restaurant = require('../models/Restaurant')
 exports.getReviews = async (req, res, next) => {
     let query;
 
-    query = Review.find().populate({
-        path: 'restaurant',
-        select: 'name'
-    });
+    if(req.params.restaurantId) {
+        console.log(req.params.restaurantId);
+
+        query = Review.find({
+            restaurant: req.params.restaurantId
+        }).populate({
+            path: 'restaurant',
+            select: 'name'
+        });
+    }else{
+        query = Review.find().populate({
+            path: 'restaurant',
+            select: 'name'
+        });
+    }
     try{
         const reviews = await query;
         res.status(200).json({
