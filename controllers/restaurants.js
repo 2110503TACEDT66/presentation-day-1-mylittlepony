@@ -96,16 +96,10 @@ exports.getRestaurant=async(req,res,next)=>{
 
 exports.createRestaurant=async (req,res,next)=>{
     try{
-        const existed = await Restaurant.find({name: req.body.name});
-
-        if(existed){
-            return res.status(400).json({success:false, msg: "Please provide an alternative name for the restaurant, as the previous one has already been used."});
-        }
-
         const restaurant = await Restaurant.create(req.body);
         res.status(201).json({success:true, data:restaurant});
     }catch(err){
-        res.status(400).json({success:false});
+        res.status(400).json({success:false, msg: "Please provide an alternative name for the restaurant, as the previous one has already been used."});
     }
 };
 
