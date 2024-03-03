@@ -60,11 +60,9 @@ exports.createReview = async (req, res, next) => {
         
         req.body.user = req.user.id;
         
-        const existingReview = await Review.findOne({ user: req.body.user, restaurant: req.params.restaurantId });
+        const existingReview = await Review.find({ user: req.body.user, restaurant: req.params.restaurantId });
 
-        console.log("Existing Review:", existingReview);
-
-        if (existingReview != null && req.user.role !== 'admin') {
+        if (existingReview.length >= 1 && req.user.role !== 'admin') {
             return res.status(400).json({ success: false, message: `The user with ID ${req.user.id} has already made a review for this restaurant` });
         }
 
