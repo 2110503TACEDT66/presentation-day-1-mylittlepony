@@ -5,7 +5,7 @@ const Restaurant = require('../models/Restaurant')
 exports.getReviews = async (req, res, next) => {
     let query;
 
-    query = Review.find({user:req.user.id}).populate({
+    query = Review.find().populate({
         path: 'restaurant',
         select: 'name'
     });
