@@ -86,7 +86,19 @@ exports.getRestaurant=async(req,res,next)=>{
             return res.status(400).json({success:false});
         }
 
-        res.status(200).json({success:true, data: restaurant});
+        const avgRating = await Review.aggregate([
+            {
+                $match: { restaurant: restaurant._id }
+            },
+            {
+                $group: {
+                    _id: null,
+                    averageRating: { $avg: "$rating" }
+                }
+            }
+        ]);
+
+        res.status(200).json({success:true, data: restaurant, averageRating: avgRating.length > 0 ? avgRating[0].averageRating.toFixed(1) : 'No Review'});
     }catch(err){
         res.status(400).json({success:false});
     }

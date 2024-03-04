@@ -70,10 +70,10 @@ exports.addReservation = async (req,res,next) => {
     try {
         req.body.restaurant = req.params.restaurantId;
 
-        const restaurant = await Restaurant.findById(req.params.restaurantId);
+        const restaurant = await Restaurant.findById(req.body.restaurant);
 
         if(!restaurant){
-            return res.status(404).json({success: false, message: `No restaurant with the id of ${req.params.restaurantID}`});
+            return res.status(404).json({success: false, message: `No restaurant with the id of ${req.params.restaurantId}`});
         }
         
         req.body.user = req.user.id;
